@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>妖精の森の秘密: 妖精と人間の邂逅</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a2e;
+      --text-primary: #e0ddd5;
+      --text-secondary: #8a8a9a;
+      --accent: #4a9eff;
+      --accent-dim: #2a5a9a;
+      --gold: #c4a35a;
+      --chapter-border: #2a2a3e;
+      --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+      --sans: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.95;
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px 80px;
+      background: linear-gradient(180deg, #1a2a4a 0%, #0f1a2f 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(120,180,255,0.15) 0%, transparent 70%);
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      text-shadow: 0 2px 20px rgba(100,160,255,0.3);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: #b0c4de;
+      letter-spacing: 0.15em;
+    }
+    .hero-line {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 28px auto 0;
+    }
+
+    /* ─── Navigation ─── */
+    .nav-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--chapter-border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      overflow-x: auto;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+    }
+    .nav-bar .nav-title {
+      color: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+      margin-right: 8px;
+    }
+    .nav-bar a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .nav-bar a:hover {
+      color: var(--accent);
+      background: rgba(74,158,255,0.1);
+    }
+
+    /* ─── TOC ─── */
+    .toc {
+      max-width: 700px;
+      margin: 60px auto 40px;
+      padding: 0 20px;
+    }
+    .toc h3 {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .toc-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-left: 2px solid var(--chapter-border);
+      transition: all 0.25s;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+    }
+    .toc-item:hover {
+      border-color: var(--accent);
+      background: rgba(74,158,255,0.04);
+      padding-left: 24px;
+    }
+    .toc-num {
+      font-size: 0.75rem;
+      color: var(--accent-dim);
+      font-weight: 700;
+      min-width: 20px;
+    }
+
+    /* ─── Characters ─── */
+    .characters {
+      max-width: 700px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .characters h3 {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .char-card {
+      background: var(--bg-card);
+      border: 1px solid var(--chapter-border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .char-name {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .char-meta {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .char-meta span {
+      background: rgba(74,158,255,0.1);
+      padding: 1px 8px;
+      border-radius: 4px;
+    }
+    .char-appearance {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 6px;
+      border-left: 2px solid var(--chapter-border);
+      padding-left: 10px;
+    }
+    .char-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── Divider ─── */
+    .section-divider {
+      width: 40px; height: 1px;
+      background: var(--chapter-border);
+      margin: 0 auto;
+    }
+
+    /* ─── Chapter ─── */
+    .chapter {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px;
+      border-top: 1px solid var(--chapter-border);
+    }
+    .chapter-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .chapter-number {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--accent-dim);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .chapter-title {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .chapter-image {
+      margin: 0 -20px 40px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--chapter-border);
+    }
+    .chapter-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.92;
+    }
+    .chapter-body p {
+      margin-bottom: 1.2em;
+      text-indent: 1em;
+      text-align: justify;
+    }
+    .chapter-body p:empty {
+      display: none;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--chapter-border);
+    }
+
+    /* ─── Reading mode toggle ─── */
+    .mode-toggle {
+      position: fixed; bottom: 20px; right: 20px; z-index: 200;
+      background: var(--bg-card);
+      border: 1px solid var(--chapter-border);
+      color: var(--text-secondary);
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+
+    /* --- TTS Read Aloud --- */
+    .tts-fab {
+      position: fixed; bottom: 80px; right: 20px; z-index: 200;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none;
+      font-size: 22px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tts-fab:hover { transform: scale(1.1); }
+    .tts-fab.speaking { background: #e74c3c; animation: tts-pulse 1.5s infinite; }
+    @keyframes tts-pulse {
+      0%,100% { box-shadow: 0 4px 16px rgba(231,76,60,0.4); }
+      50% { box-shadow: 0 4px 24px rgba(231,76,60,0.7); }
+    }
+    .tts-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(20,20,30,0.95); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--chapter-border);
+      padding: 10px 16px; display: none;
+      align-items: center; gap: 10px;
+      font-family: var(--sans); font-size: 0.85rem;
+    }
+    .tts-bar.active { display: flex; flex-wrap: wrap; }
+    .tts-bar button {
+      background: none; border: 1px solid var(--text-secondary);
+      color: var(--text-primary); border-radius: 6px;
+      padding: 6px 12px; cursor: pointer; font-size: 0.8rem;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .tts-bar button:hover { border-color: var(--accent); color: var(--accent); }
+    .tts-bar .tts-info {
+      flex: 1; color: var(--text-secondary);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      min-width: 80px;
+    }
+    .tts-bar .tts-speed {
+      display: flex; align-items: center; gap: 4px;
+      color: var(--text-secondary); font-size: 0.75rem;
+    }
+    .tts-bar .tts-speed input { width: 60px; accent-color: var(--accent); }
+    body.light .tts-bar {
+      background: rgba(245,245,240,0.95); border-top-color: #ddd;
+    }
+    body.light .tts-bar button { border-color: #999; color: #333; }
+    body.light .tts-bar .tts-info { color: #666; }
+
+    /* ─── Light mode ─── */
+    body.light {
+      --bg-primary: #f5f0e8;
+      --bg-secondary: #ebe5d9;
+      --bg-card: #fff;
+      --text-primary: #2a2a2a;
+      --text-secondary: #6a6a6a;
+      --chapter-border: #d5cfc3;
+      --accent: #2563eb;
+      --accent-dim: #6b9eff;
+      --gold: #8a6d2b;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      body { font-size: 15px; }
+      .chapter { padding: 50px 16px; }
+    }
+
+    /* ─── Scroll progress ─── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 200;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      width: 0%;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="progress"></div>
+
+  <header class="hero">
+    <h1 class="hero-title">妖精の森の秘密: 妖精と人間の邂逅</h1>
+    <p class="hero-sub">GENERATED WITH LOCAL AI — OLLAMA + STABLE DIFFUSION</p>
+    <div class="hero-line"></div>
+  </header>
+
+  <nav class="nav-bar">
+    <span class="nav-title">目次</span>
+    <a href="#chapter-1">第1章</a><a href="#chapter-2">第2章</a><a href="#chapter-3">第3章</a><a href="#chapter-4">第4章</a><a href="#chapter-5">第5章</a><a href="#chapter-6">第6章</a><a href="#chapter-7">第7章</a><a href="#chapter-8">第8章</a><a href="#chapter-9">第9章</a><a href="#chapter-10">第10章</a>
+  </nav>
+
+  <div class="toc">
+    <h3>— 目次 —</h3>
+        <a href="#chapter-1" class="toc-item"><span class="toc-num">1</span><span class="toc-label">妖精の森の入口</span></a>
+        <a href="#chapter-2" class="toc-item"><span class="toc-num">2</span><span class="toc-label">古代の秘密</span></a>
+        <a href="#chapter-3" class="toc-item"><span class="toc-num">3</span><span class="toc-label">第3章</span></a>
+        <a href="#chapter-4" class="toc-item"><span class="toc-num">4</span><span class="toc-label">第4章</span></a>
+        <a href="#chapter-5" class="toc-item"><span class="toc-num">5</span><span class="toc-label">第5章</span></a>
+        <a href="#chapter-6" class="toc-item"><span class="toc-num">6</span><span class="toc-label">第6章</span></a>
+        <a href="#chapter-7" class="toc-item"><span class="toc-num">7</span><span class="toc-label">第7章</span></a>
+        <a href="#chapter-8" class="toc-item"><span class="toc-num">8</span><span class="toc-label">第8章</span></a>
+        <a href="#chapter-9" class="toc-item"><span class="toc-num">9</span><span class="toc-label">第9章</span></a>
+        <a href="#chapter-10" class="toc-item"><span class="toc-num">10</span><span class="toc-label">第10章</span></a>
+  </div>
+
+  <div class="characters">
+    <h3>— 登場人物 —</h3>
+    <div class="char-grid">
+      <div class="char-card">
+        <div class="char-name">ルナ</div>
+        <div class="char-meta"><span>主人公</span><span>17歳</span></div>
+        <div class="char-appearance">長い銀色の髪が風に靡き、透き通るような青い目が特徴。妖精らしく小柄で、常に薄紫色のローブを着ています。</div>
+        <div class="char-desc">好奇心旺盛で勇敢</div>
+      </div>
+      <div class="char-card">
+        <div class="char-name">マコト</div>
+        <div class="char-meta"><span>サブキャラ</span><span>20歳</span></div>
+        <div class="char-appearance">普通の人間の青年で、茶色い髪と黒い目が特徴。村でもっとも勇敢な冒険者の一人です。</div>
+        <div class="char-desc">誠実で優しい</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <main>
+
+    <section class="chapter" id="chapter-1">
+      <div class="chapter-header">
+        <span class="chapter-number">第1章</span>
+        <h2 class="chapter-title">妖精の森の入口</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>風が木々の葉を通じて囁き、森の奥深くから甘い花の香りと湿った土の匂いが漂ってくる。初夏の朝、薄明かりの中で露に濡れた緑色の草茎が光る。小鳥たちのさえずりは遠慮がちで、霧の中を音だけが進んでいくようだ。</p>
+
+        <p>「ああ…どこだろう？」</p>
+
+        <p>青年マコトはうつ伏せになって地面を探っている。</p>
+        <p>彼の服に付いた土と葉っぱを見れば、間違って森に入ってしまったことは明らかだった。視界の先には樹齢数百歳と思われる巨大な木々が立ち並び、その根元から草や蔓植物が這い上がり、道を塞いでいる。</p>
+
+        <p>「ルナ…」</p>
+
+        <p>突然姿を見せた少女は小さくて銀色の髪と青い目を持ち、身につけている薄紫色のローブがかすかな風に乗って揺れていた。彼女は森の中でも特に美しく咲き誇る花々を手入れする役割を持つ妖精、ルナだった。</p>
+
+        <p>「こんにちは」とマコトが言った。「迷子になりました…」</p>
+
+        <p>少女は静かに微笑んだ。</p>
+        <p>木の下では陽光が薄い斑模様を作り出していた。彼女は青い瞳で青年を見つめると、「私があなたを導きますね」</p>
+        <p>風に乗せられて、花びらが二人の間に舞った。</p>
+
+        <p>「ここには道はありません」とルナ。「ですが私がその代わりになる」</p>
+
+        <p>霧の中でも光るような目を持つ少女に導かれてマコトは歩き出す。彼女の手のひらは肌寒く小さな光を宿しているように見えた。</p>
+        <p>木々が通り過ぎていく速度や音、太陽の位置から一日の大半が経つことを察した時だった。</p>
+
+        <p>「これは？」</p>
+
+        <p>森の中には様々な妖精達の姿があったが、この二人以外の人間との出会いはまずい。マコトにそう言おうとしたルナだったが、「大丈夫です」と彼女は静かに微笑んだ。</p>
+        <p>そして小枝や葉を拾って、その形と色で簡単な絵文字を作り出す。</p>
+
+        <p>「どうやってここから戻るの？」</p>
+
+        <p>マコトの問いかけには少し考えてから答えた。「この森からは迷子にならないように」彼女は木々に囲まれた小さな祠のようなものへ二人を連れて行った。</p>
+        <p>そこにある石板が光ったとき、ルナは「これが答えです」と言った。</p>
+
+        <p>二人でその場所から離れるにつれ、妖精の森の中には再び不思議な静けさと神秘的な香りが広がっていく。時折風に乗って聞こえてくるのは遠くでの鳥の声だけだった。</p>
+        <p>後ろを振り返ると、もう迷い込んだとは信じられないような道筋しか見えない。</p>
+
+        <p>「ありがとう」とマコトは言った。「これが私の村へ帰る手助けになるなら…」</p>
+
+        <p>ルナは頭を下げるだけで答えた。そして、「また会いましょうね」</p>
+        <p>そう言って彼女が消えるのを見送った後、木々から聞こえてくるのはただ鳥たちのさえずりと遠くで風が鳴らす音だけだった。</p>
+
+        <p>光が薄暗くなり始めると同時に、二人は再び自分の世界へ戻る準備を整え始めていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-2">
+      <div class="chapter-header">
+        <span class="chapter-number">第2章</span>
+        <h2 class="chapter-title">古代の秘密</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕暮れ時の風が妖精の森に吹き込み、枯葉と魔法の花びらが舞い散る。ルナとマコトは静寂の中で歩み続けた。足元には薄紫色の光が揺れており、それは妖精たちの道標だった。</p>
+
+        <p>「ここから進むべきだと聞いたね？」</p>
+        <p>ルナの小さな指先で、一本の古木に彫られた刻印を示す。</p>
+        <p>マコトは頷き、「そう。もう少し行けば祠があるそうだよ」と応えた。</p>
+        <p>彼らが進んだ先には、苔が這い上がり石碑が立ち並ぶ広場があった。そこから見えるのは古い神殿の尖塔と、森に囁かれる伝説。</p>
+
+        <p>「ここだね」</p>
+        <p>ルナはマコトの手を握り、「秘密を見せてあげる」とささやいた。</p>
+        <p>二人は木々の中腹へ登った。苔むした石段が続くその先には、神殿への入り口があった。</p>
+
+        <p>内部では、星屑のような細工物が天井に広がっていた。青き光が洞窟を包み込み、静寂の中で音色があちこちから聞こえてくる。</p>
+        <p>マコトの靴底は石畳を踏むたび乾いた音を立て、「ここは何もなければ」と呟く。</p>
+
+        <p>「何でもないわけじゃないわ」</p>
+        <p>ルナは軽やかに足元を見つめ、その先にある階段へと進み始める。細い手が岩壁の隙間から花を取り出す。</p>
+        <p>「妖精たちはこの場所を大切にするんだよ」</p>
+
+        <p>二人はさらに深く下りていく。</p>
+        <p>その先には彫刻があけらびて光る巨大な像があった。「ここに何かあるはずだ」とマコトは静かに呟き、壁面の記号を探し始めた。それは古語で書かれているのか？</p>
+        <p>「魔法の言葉なの？」</p>
+
+        <p>ルナは首を横に振って、「ただの象徴よ」と笑った。</p>
+        <p>光が落ちるところから石像を見上げると、そこには複雑な表情があった。「何か伝えたいことがあるかのような」</p>
+        <p>二人は何度もその彫刻を見て回り、「これは？」と尋ね合う。</p>
+
+        <p>突然、後方で音が聞こえ、足元の岩盤に響き渡る。</p>
+        <p>「誰だ!?」</p>
+
+        <p>マコトは腰を低くして周囲を見廻し、「今から出てくるな」と呟いた。彼は何度も辺りを確認した。「まさか人間が？」</p>
+
+        <p>その時、闇から現れたのは年老いた神官だった。</p>
+        <p>「二人ともここには来ちゃダメなんだよ」</p>
+        <p>しかし、マコトとルナは静かな表情で相手を見つめ、「どうして？」と尋ねた。</p>
+
+        <p>古い男の声は耳に心地よく響き、「ここには妖精たちが守るべき秘密があるからさ」と答えた。「それが触れられてしまうと、この森の力も失われちゃうんだよ」</p>
+        <p>マコトは何度か深呼吸を繰り返し、「でも私たちは何も…」</p>
+
+        <p>「伝説は伝えなければならない時もある。君達にもそれは運命のように訪れるだろう」と神官が言った。</p>
+        <p>ルナと顔を見合わせる。「私たちも？」「ええ、未来の鍵だよ」</p>
+        <p>その言葉に二人は何を考えているのか読み取れない表情をした。</p>
+
+        <p>「ここにある秘密は伝えるべき時が来たら自然と開ける。君たちにはそれを探す力がある」と神官は笑みを見せ、「ではもう少し進んでみてはどうだろう？」と言った。</p>
+        <p>ルナの手を取り、マコトは光の道へと歩き始めた。「それが私たちに任されていることかもしれないね」</p>
+
+        <p>闇の中でも二人は互いを信頼し、その先にある真実を探そうとした。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-3">
+      <div class="chapter-header">
+        <span class="chapter-number">第3章</span>
+        <h2 class="chapter-title">第3章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の夜、妖精の森では月が柔らかな光を放ち、地面に白銀色の絨毯を作っていた。微風に乗って甘い香りが漂い、それは古い秘密と未来への約束のようなものを感じさせる。二人は祠からほど近い場所で休んでいた。</p>
+
+        <p>「このまま進むべきか迷っている？」ルナの問いかけにマコトは静かな夜空を見上げた。</p>
+        <p>「神官様のお話が本当なら、ここには何か大切なものが眠ってるんだよ」</p>
+
+        <p>林の中からは遠くで虫たちが鳴き始めている。その音色は二人の胸を温かさと不穏な予感に満ちる。</p>
+
+        <p>ルナは木々の間から見える星を見つめながら「でも、もし私たちの手で破壊的な力を生み出したら？」</p>
+        <p>月光が彼女の顔を柔らかな金色に染めていた。薄いローブが風に揺れて、その体形すらも神秘的に見えた。</p>
+
+        <p>マコトはしばし黙り込んだ後、「でもルナちゃん、私たちには使命があるんだよ」</p>
+        <p>「それがこの祠の秘密を見つけ出すことなんだ」</p>
+
+        <p>森の中に広がる青白い光。遠くから聞こえる流水の音と共に二人の呼吸だけが静寂を割って響いた。</p>
+
+        <p>「それでも勇気が出ないことは？？」ルナは月明りの中で自分の手を見つめながら尋ねた。</p>
+        <p>マコトは少し笑った、「だからこそ一緒に進もうと決めたんだ。一人じゃできないから」</p>
+
+        <p>木々に囲まれて広がる闇の向こう側で、何かが蠢いているような気がした。</p>
+
+        <p>二人は何も言わずに祠へ向かう準備を始める。</p>
+        <p>「ここは本当に秘密だらけよね」ルナが呟きながら手元を見つめた。「でも同時に希望もある」</p>
+
+        <p>月光に浮かぶ雲の隙間から届く風。それが遠い星々からの訪れのように思えた。</p>
+
+        <p>祠への道程では木々の影が静寂を守り、時折聞こえる鳥や虫たちとの対話しか存在しなかった。</p>
+        <p>二人は手を取り合って進んでいった。その触れ合いには言葉よりも多くの意味があったように感じられた。</p>
+
+        <p>あるときルナが立ち止まった。「ここで少し休もうかな」</p>
+        <p>マコトは頷いて彼女と並んだまま腰を下ろした、そこからは祠の奥深くが見えた。</p>
+        <p>「私たちの決断で世界はどう変わるのか？」</p>
+
+        <p>祠への入り口から漂う古い香り。それは遠い過去からのメッセージのように思われた。</p>
+
+        <p>「でもそれが使命なんだよ」マコトは静かに言った。「二人一緒なら怖がらないよ」</p>
+
+        <p>ルナは黙って頷き、自分の手を見つめた。</p>
+        <p>そこには何かが宿っているように見えた。</p>
+
+        <p>祠の秘密を探るため、新たな決断をした二人は再び旅路へと向かった。月光はその背中を静かに照らしていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-4">
+      <div class="chapter-header">
+        <span class="chapter-number">第4章</span>
+        <h2 class="chapter-title">第4章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>月光が薄紫の花びらのように、妖精の森に降り注ぐ。地面には露から白い霧があがっており、足音ひとつでそれが揺らいでいく。マコトとルナは祠に向かう道を静かに進み続けた。</p>
+
+        <p>「ここだ」</p>
+        <p>祠へ続く小径を見つけたマコトの声と共に、二人の手を取り合った指先から微かな震えが伝わる。祠は古びて苔むしており、その周りには魔法によって咲き誇る花々が夜光するように美しかった。</p>
+
+        <p>「私たちだけで行こう」</p>
+        <p>ルナが静かに言った。</p>
+        <p>マコトは頷いた。「誰にも知らせないでおく」</p>
+
+        <p>二人の決断を確認した後、祠への道程が始まった。月明かりの中で、古い石碑がぼんやりと浮き彫りになっている。その先には森が次第に薄暗くなり、夜露が生い茂る草木から滴っていた。</p>
+
+        <p>「気をつけよう」</p>
+        <p>マコトは小声でルナを注意した。</p>
+        <p>祠の入り口へ近づくにつれ、空気が一変するように感じられた。そこからは魔法のような力を感じ取り、不思議な音色と共に風が吹き抜けていくのが聞こえた。</p>
+
+        <p>「手伝って」</p>
+        <p>マコトは祠の扉を開けようとしてルナに言った。</p>
+        <p>二人で力を合わせて開いたその扉から中へと踏み込む。祠の中は薄暗さの中に魔法のかかった灯りがあり、古い壁紙が剥げ落ちていた。</p>
+        <p>中央には石製の壇があって、上に乗るような小さな箱があった。</p>
+
+        <p>「これが秘密か」</p>
+        <p>ルナは不思議そうに言った。</p>
+        <p>マコトもその言葉を肯定した。「確かにそうだ」</p>
+
+        <p>祠の中では時間が止まっているように感じられる。外からの風が届かない無限ともいえる静けさの中で、二人は何処からともなく聞こえてくる音色と共に古い箱を開き始めた。</p>
+
+        <p>「中には何も…」</p>
+        <p>ルナの言葉を途中でマコトは遮った。「見てみて」</p>
+
+        <p>開かれた箱の中には紙片が入っていた。それは長い年月を経て朽ち果て、灰色となった書類だった。</p>
+        <p>だがその中に包まれていたものは、驚くべきものであった。</p>
+
+        <p>「これは…」</p>
+        <p>マコトの声にルナも続けた。「秘密だ」</p>
+
+        <p>二人はそれぞれ理解しようと試みる。祠の中には様々な種類の箱や壇が並んでおり、それらから次々と古い記録を読み解き始めた。</p>
+        <p>時間と共に進むその探検の中で、マコトとルナは何もかもを見つめ直し始める。</p>
+
+        <p>「私たち以外はこの秘密に触れないように」</p>
+        <p>祠の外へ出る時刻が近づいた。マコトはそう言った。</p>
+        <p>二人ともそれを確認した。「そうだ」</p>
+
+        <p>そして祠を閉じた後、静寂の中を歩き始めると同時に、ルナはふと立ち止まった。</p>
+
+        <p>「また来ようね」</p>
+        <p>彼女は微笑んで言った。</p>
+        <p>その言葉に答えてマコトも笑った。しかし目線の先には次の冒険への期待が揃っていた。</p>
+
+        <p>祠から出てきた二人を待つのは、妖精の森の静けさと、月明かりだった。そこからはもう一つ新たな道程が始まる予感があった。</p>
+        <p>夜風が吹き抜けていって、次々に新しい音色と共に前進する手順を作り出していく。</p>
+
+        <p>祠へ続く小径は彼らを導いた路でありつつも、また次の冒険への序章でもあった。この夜の出来事から二人は何処かで新たな旅立ちを感じていた。</p>
+        <p>月光が再び薄紫に染まりながら、マコトとルナはお互いを見つめ合った。</p>
+
+        <p>祠へ続く道程は終わりを告げたように見えたが、同時にまた新しい幕開けも始まっていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-5">
+      <div class="chapter-header">
+        <span class="chapter-number">第5章</span>
+        <h2 class="chapter-title">第5章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の薄暗い森の中で、風が木々の葉音に混じりながら微かに吹き抜けていく。新芽から発せられる甘酸っぱさと土の匂いが鼻腔いっぱいになる。日の光はまだ地面には届いていない。ルナは祠を出て一息ついた。</p>
+        <p>「ここまでの記録、すごいよね」とマコトが口元を綻ばせる。「でもこれで終わりじゃないよ」</p>
+        <p>ルナも微笑んだ。「そうだね。次の冒険が始まる」</p>
+        <p>二人は森の奥へと進む道を見据える。そこには未知なる光景や邂逅があるだろう。</p>
+        <p>「この祠から見た景色、何か特別なものを感じるわ」と彼女がつぶやくように言った。</p>
+        <p>マコトはルナを一瞥し、「君ならその感じ方をするよね」と答えただけだった。「森の奥深さなんて、まだまだ知らないことだらけだから」</p>
+        <p>すると風に乗って奇妙な音が聞こえてきた。二人は耳を澄ませる。</p>
+        <p>「何かいる？」とマコトが低い声で尋ねた。</p>
+        <p>ルナもまた、頷きながらその声音に応えた。「今度こそ冒険の始まりだ」</p>
+        <p>光線は森の隙間から柔らかく差し込んでいる。地表では薄紫色の花々が咲き乱れていた。</p>
+
+        <p>二人は祠を出たまま遠ざかる足音と共に、新たな道に進み始めた。</p>
+        <p>マコトが歩幅を広げ、「今度は何を見つけられるかな」と呟くように言った。「謎解きや宝探しが大好きだよ」</p>
+        <p>ルナもまた歩調を合わせながら静かに言葉を紡いだ。「でもね、私たちの出会いそのものが大きな発見だったわ。人間と妖精が同じ目的で行動すること自体、奇跡のようなものだと思うから」。</p>
+        <p>二人は手を繋いで進む道を見つめ合う。</p>
+
+        <p>前方には細かな音や気配がありつつもまだ見えない何かがあるかのように感じられた。その先に広がる不確定な世界への予感。</p>
+        <p>「でもね」とマコトが立ち止まり、ルナの目を見て言った。「もしまた危険があったりしたら……」</p>
+        <p>彼女は静かに頷き、「何があっても一緒に解決するから大丈夫だよ。私たちならできるって信じてる」と力強く言葉を返した。</p>
+        <p>そうして二人は再び進み始めた。</p>
+
+        <p>その日暮れ、彼らの目に初めて妖精と人間が共存している風景が広がった。「ここにこんな光景があるなんて……」</p>
+        <p>マコトもまた目を見開き、「信じられないね」と静かにつぶやいた。</p>
+        <p>しかしルナはただ微笑んで、彼を視るだけだった。</p>
+
+        <p>日暮れの暗さが徐々に深まっていく中で二人は共鳴する。それぞれが互いへの信頼と理解の中に新たな決断を見つけることができたのだ。</p>
+        <p>彼らの前に広がるのは未知なる冒険だ。しかし、それ以上の何か大切なものがそこには存在していた。</p>
+
+        <p>風は木々を震わせながらその先へと進む二人を導くかのように吹き抜けていく。光線もまた森に差し込んでいたが、それは彼らの背後からではなく、前へと続く道を行く二人を見守るように輝いていた。</p>
+        <p>ルナはマコトに視線を向け、「私たちなら大丈夫ね」と微笑むように言った。「一緒に進もう」</p>
+        <p>その言葉と共に、新たな冒険への扉が開かれる。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-6">
+      <div class="chapter-header">
+        <span class="chapter-number">第6章</span>
+        <h2 class="chapter-title">第6章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>黄昏時の森は、薄暗さの中にも金色の光が差し込み、日が傾きゆく午後の余韖に満ちていた。湿った土から立ち上る露が冷たさを感じさせる一方で、遠くからは草木を育む暖かな風味が漂ってくる。鳥たちが薄暗い枝葉の間でさえずり、その声は夜明け前の静寂よりも深みがあり、何か新たな物語が始まる予感があった。</p>
+
+        <p>ルナとマコトは祠から離れた場所に陣取り、明日への準備をしていた。「ここら辺では最も高い木だね」とマコトが言った。彼の指差す先には、森の中でも特に高さを誇る巨大な楡の大木があった。</p>
+
+        <p>「そうだよ。その木なら見える範囲も広いし、観察するのに丁度いいわ」ルナは明確に答えると同時に、視線の端で小さな妖精が飛び交う様子を見逃さなかった。「もし明日そこから見てみるとすれば、どんな景色が見られるのか楽しみだわ」</p>
+
+        <p>「あそこに登るのは少し大仕事になりそうだけれどね。でもそれは冒険なんだよ」マコトは笑って続けた。</p>
+
+        <p>二人の目の前には森に囲まれた広い平地があり、そこからさらに深い場所へと続く道が続いていた。「明日こそは妖精たちと一緒にあの奥深くまで進んでみようか」とルナが提案すると、「もちろんね。私たちなら大丈夫だよ」とマコトも賛同した。</p>
+
+        <p>翌朝、空気がすっきり澄んでいる中で二人は出発を始めた。森の道々には昨日とは違う光景があり、新しい冒険への予感と共に、それぞれ内心での決意があった。「私たちは必ず秘密を見つけることができる」とルナが静かに言った。</p>
+
+        <p>「そうだね」マコトも同意した後、「でもその前に一つ確認したいことがあるんだ」</p>
+
+        <p>二人は足を止め、互いの目を見て向き合った。お互いへの信頼と友情からくる自然な答えがあった。「何？」と問いかける前にもう彼女は理解していた。</p>
+
+        <p>「妖精たちと一緒に進むべきか？私たちは人間と異界との繋がりを深めたいと思うけれど、そのことで何か問題があるかもしれない。私たちの行動により他の住民に影響が出る可能性もある」</p>
+
+        <p>ルナも同様の懸念があった。「それは確かに重要な問いだわ」と彼女は応じ、「でも私たちは特別な絆を持っているよね？もし彼らが協力してくれるなら、我々三人で進めていくべきだと私は思う。私たち三人だけでは成し遂げられないこともあるかもしれないから」</p>
+
+        <p>二人ともその提案を深く考えながら頷いた。「一緒に進めば何か新しい発見があるだろうね」とマコトは言った。</p>
+
+        <p>「そうですね」ルナも同意した後、「私たちは一人でいるよりも力を合わせて進むべきだと思うわ。明日の冒険では、それぞれが持つスキルと経験を活かして進めよう」</p>
+
+        <p>二人ともその言葉に頷き合い、新たな決意と共に再度歩み始めた。</p>
+
+        <p>彼らは森の中深くへ向かいながら、「もし私たちでできることなら全て試す」と心に誓った。それは未知への挑戦であり冒険でもあったが、同時に人間と妖精の絆を強くする旅でもあるのでした。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-7">
+      <div class="chapter-header">
+        <span class="chapter-number">第7章</span>
+        <h2 class="chapter-title">第7章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>薄暗い森の奥で、葉っぱが揺れる音と足元から湧き出す湿った土壌の香りが広がっていた。微かな風に導かれて小さな花びらが舞う様子は、夢幻的な光景だった。ここは昨日ルナたちが初めて訪れた妖精の森の一画であり、日付が変わり静寂の中、新たな一日が始まる間際だった。</p>
+
+        <p>マコトとルナは前夜に続き再会し、今日冒険する楡の大木へ向かう道を準備していた。彼らはそれぞれ持参した道具を肩当てに装着しながら、手元の地図を見比べる。</p>
+
+        <p>「もう少し行けば見えるはずだよ」とマコトが口角を持ち上げた。</p>
+        <p>ルナは頷き、瞳の中で初めて見る楡の大木への興奮と期待感が交錯しているのが自分でもわかった。彼女は小声でつぶやいた。「それは本当？」</p>
+
+        <p>「そうださ。見えるまで絶対に止まらないよ」マコトの言葉には力強さがあった。</p>
+
+        <p>二人は静かな足取りを繰り返し、道程が開けた場所では立ち上がりながら進むこともあった。しかし森の中深くへと向かうにつれて光はより薄くなり、風も穏やかで不思議な沈黙に包まれる。</p>
+
+        <p>「ここから見えるかな？」「さあ……」ルナの指先が前を示した。「木々の間隙を見たとき、あの大木が姿を見せてくれるかもしれない」</p>
+
+        <p>突然二人は足を止めた。前方には立ち塞がりのように現れた大きな楡の大木があった。それは天高く聳え立っており、その周囲に巻きついた藤蔓と様々な植物たちで覆われていた。</p>
+
+        <p>ルナの目から見れば、そこではまるで未知なる世界への入口を見るような感覚だった。「ここが……」彼女の声は静寂の中で僅かな音量を放ちながらも、その言葉には深い重さがあった。</p>
+        <p>「そうだ。あの木を見てみよう」とマコトが言った。</p>
+
+        <p>ルナとマコトは一息ついた後、さらに大木の根元へ近づいていった。彼らはそこから上を見上げた。楡の大木は壮麗な姿をさらけ出しているように思えた。</p>
+        <p>その光景を見てる内に二人とも何かが心の中で動き出した。「私達にはそれが見えるだろうか？」「きっと」とマコトの答えと共に、ふたり同時に背筋が凍えるような感覚があった。</p>
+
+        <p>ルナは深呼吸をしてから、「私たちも……」と続けた。彼女が見たのは大木そのものではなく、そこにある何か他の不思議な存在だった。「一緒に進むべきだ」とマコトの言葉に、二人とも頷いた。</p>
+        <p>「そうだよ」</p>
+
+        <p>彼らは静かだが力強い足音で森を横切り、楡の大木へと続く道筋を探した。そして同時に、前夜から今にも続いている冒険への新たな決断が、ふたりの中で生まれ始めていたのである。</p>
+
+        <p>光の欠片と共に広がる不確実な気配の中でも、二人は互いを信じて歩み続けていった。その先には何があるのか、それはまだ誰も知らない。</p>
+        <p>しかし彼女たちにできることはただ一つ、「一緒に進む」ことだった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-8">
+      <div class="chapter-header">
+        <span class="chapter-number">第8章</span>
+        <h2 class="chapter-title">第8章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>風が木々の葉を撫で、柔らかな音色を奏でる。楡の大木の根元では露が陽光に輝き、細い水滴は宝石のように揺れ動きながら地面へと落ちていく。薄紫色のローブの袖から零れた一筋の髪が風に乗ってルナの頬に触れる。彼女は静かな息を吐く。</p>
+
+        <p>「ここだよ」</p>
+        <p>マコトが囁いた声には震えがあり、それは彼もまたこの場所で感じる不思議な力を感じていることを示していた。</p>
+        <p>彼ら周辺では微細な花の香りと湿った土壌の匂いが混じり合って漂っている。</p>
+
+        <p>ルナは前を向いて歩み出し、マコトと共に森の奥深くへ進んでいった。一見すると何も変わらぬ風景だけれども、肌に感じるのは寒々とした空気と不思議な高揚感だった。</p>
+        <p>二人が楡の大木の下まで来ると、地面はやわらかで滑らかな苔床となり、そこには古代から続く秘密が眠っているような気がした。</p>
+
+        <p>「この樹幹を見ろ」</p>
+        <p>マコトが低く囁いた。彼女の視線を誘うように大木の根元に目を向けると、そこはまるで別の世界だった。</p>
+        <p>細かい文字と幾何学的な模様から構成される謎めいた文様が刻まれている。</p>
+
+        <p>「これって何かしら？」</p>
+        <p>ルナも呟きながらその文字を見つめる。手のひらに浮かぶ汗を拭い、身近な花々を観察する。</p>
+        <p>彼女は不意に立ち上がり、小枝を拾い上げた。「この木にはどんな秘密が隠されているのか？」</p>
+        <p>樹皮の表面を探るように指先で触れる。</p>
+
+        <p>「わからない」とマコトもまたその問いに答えることができない。二人とも互いを見合い、静かな沈黙の中で何かを感じ取る。</p>
+        <p>「私達は」ルナが口を開く。「この森を変えていくべきだと思わない？」</p>
+
+        <p>風の音が一度だけ中断し、その後再び彼ら周囲で奏鳴する。</p>
+
+        <p>マコトは何秒も視線を合わせたまま動き出さない。彼女の問いかけに対する答えはまだ出ていない。</p>
+        <p>「私たちにはできることがある」ルナはその大きな瞳を見据え、「この森の秘密を明かすために」</p>
+
+        <p>木々が彼らを包み込むように静寂の中で息づいている。</p>
+
+        <p>マコトは何度も何度も口を開け、閉じた。彼女の声が彼の中に新たな決断を呼び起こした。</p>
+        <p>「君と一緒なら」</p>
+        <p>微かな光に照らされた二人の顔は微笑んでいた。「何でもできる」</p>
+
+        <p>彼らにはこれから旅路が始まるのだ。</p>
+
+        <p>空気が一度だけ揺れるように動く。それはこの森で新たなる冒険が始まったことを示す音だった。</p>
+        <p>ルナとマコトは手を取り合って、次に進む道を選び出した。</p>
+        <p>光の束が二人の後ろから差し込み、彼ら周囲にはやわらかな暖かさを感じさせる。</p>
+
+        <p>これから何が待ち受けているのか？</p>
+        <p>それは誰も知らない。しかし彼女たちは今ここにあるもの全てを受け入れ、新たな一歩を踏み出すことを決めた。</p>
+        <p>その先に見えるのはただ未知の世界だけだった。</p>
+        <p>光と影は共存し、新しい旅路が始まる瞬間を告げていた。</p>
+
+        <p>風が再び彼ら周囲で音色を作り始めている。静寂から始まった決断の余韻が、新たな冒険への序章となる音楽へと変容していた。</p>
+        <p>楡の大木はその下に横たわる二人を見つめながら、古い秘密を閉じ込めつつ新しい物語が始まる瞬間を迎えようとしていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-9">
+      <div class="chapter-header">
+        <span class="chapter-number">第9章</span>
+        <h2 class="chapter-title">第9章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>森の奥深くで、雨粒が落葉に触れていくつもの音符を作り出す。冷たさと湿気、そして木々から漂う新鮮な土壌の匂いが鼻腔いっぱいになる。光は薄暗く、まるで時間自体が遅らされているかのように感じられる。</p>
+
+        <p>ルナは青白い月明かりに照らされた道を歩き、楡の大樹へと近づいた。彼女は何度もこの場所を通ってきたのだが、その時々によって森全体から感じる空気が変わるような変化があった。今日は特に特別な日のように感じられた。</p>
+
+        <p>「ルナさん」</p>
+        <p>後ろで聞こえる声に振り返ると、マコトがそっと歩み寄っていた。</p>
+        <p>彼女の隣りに並び立ち、二人は静かに楡の大木を眺める。</p>
+
+        <p>「何か感じる？」</p>
+        <p>ルナの問いかけに対し、マコトルナを見つめている。青い瞳には月明かりだけでなく、新たな冒険への興奮が光っていた。</p>
+        <p>彼は首肯すると小さく言った。「ある」</p>
+
+
+        <p>大樹に刻まれた神秘的な文様を凝視する二人の横で、何か微かな音が聞こえた。それは風が葉っぱを通じて歌っているような静かさだった。</p>
+
+        <p>「これ以上進むと危険かもしれない」とマコトは口を開く。「でも、ルナさんが行くなら」</p>
+        <p>彼女に目を向けた瞬間、月光が二人の顔を優しく照らし出す。</p>
+        <p>その柔らかな光の中で、互いの表情を見つめ合った。</p>
+
+        <p>「もう少し調べてみよう。私たちにはまだ何か残っている」</p>
+        <p>ルナは決意したように言った。「手を取り合って進むべき道がある」</p>
+
+        <p>彼女たちが手を繋ぐと同時に、楡の大樹から微かな光が発せられた。</p>
+        <p>その一瞬の静寂の中で二人は深呼吸をする。この先何が待っているのか予測することは不可能だった。</p>
+
+        <p>「私たちでいよう」</p>
+        <p>マコトが言うと、ルナは微笑んだ。「一緒に」</p>
+
+
+        <p>二人は何も言葉を交わさず、ただ互いに手を取り合って進む。</p>
+        <p>その背後では森全体から聞こえる音楽のような響きを感じていた。それはまるで彼らの決断を祝福しているかのように聴こえた。</p>
+
+        <p>風が再び吹くと、枯れ落ちた葉っぱたちが舞うように動いた。</p>
+        <p>光の中でそれぞれ独特な輪郭を作り出すその情景は、二人にとって新たな旅路が始まったことを示していた。</p>
+
+
+
+        <p>雨粒が地面に散らばる音。微かな月明かりの下で、二人の人影だけが揺れていた。</p>
+
+        <p>光と闇が混じった中を進むルナ達。</p>
+        <p>彼女たちはこの時季特有の静寂の中で新たな道程を見つけようとしている。</p>
+
+
+
+        <p>樹齢千年を超える楡の大木は、今なおその根元から力強い生命感を感じさせている。</p>
+        <p>二人の足音と呼吸が絡み合い、同時に鳴り響く。</p>
+
+        <p>彼らの手を繋ぐ光景に触れると、大木もまた何か言葉を紡ごうとしているように見えた。</p>
+
+
+
+        <p>風に乗って香る古さと共に新しさを秘めた空気。</p>
+        <p>それは二人を包むように広がり、静かに新たな旅路へと導いていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-10">
+      <div class="chapter-header">
+        <span class="chapter-number">第10章</span>
+        <h2 class="chapter-title">第10章</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>薄紫色の朝霧が森に纏わりつき、初夏の日差しはまだ柔らかかった。鳥たちのさえずりと足元で枯葉が軋む音だけが響く静寂の中、ルナとマコトの呼吸音も混ざる。</p>
+
+        <p>「ここまできたら引き返せないよ」と言ったのはマコトだった。「でもさ…」相棒は言葉を濁す。不安なのか？それとも希望なのか？</p>
+
+        <p>楡の大樹から微かな光が漏れ、二人は何度目かの手を取り合った。</p>
+
+        <p>青い空と緑深い木々に囲まれた道を行く彼らの影は細長かった。</p>
+        <p>「ルナ…」マコトが口を開いた。「昨日までの俺たちとは違う冒険が始まるんだ。覚悟は？」</p>
+        <p>静かな風に乗って彼女の銀色の髪がかすかに揺れた。</p>
+
+        <p>霧が少しずつ晴れ、草木から放たれる露と混ざったさわやかな匂いが二人を包む。</p>
+        <p>「もちろんよ」ルナが強く頷いた。「一緒に進もう」</p>
+
+        <p>彼らは決意を新たにして再び歩き出す。道の端に咲く花々も少し元気そうに見えた。</p>
+
+        <p>しかし…</p>
+
+        <p>何か変化した気がする。それは空気なのか？それとも二人の心の中の鼓動？</p>
+
+        <p>「マコト…」</p>
+        <p>彼女が言葉を探すように、相棒を振り返る。</p>
+        <p>「…私たちは本当は友達じゃないよね」</p>
+
+        <p>微かな風に光って輝く露。</p>
+        <p>「でも、今日からそれが変わるかもしれないよ」</p>
+
+        <p>二人は何も答えずに歩き続けた。しかし、先へ進む度に距離が近づいているような気がした。</p>
+
+        <p>日差しがもう少し上り、彼らの影は短くなっていく。そして楡の大樹からは新たな光が漏れていた…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>妖精の森の秘密: 妖精と人間の邂逅</p>
+    <p>Generated locally with Ollama + Stable Diffusion</p>
+  </footer>
+
+
+  <button class="tts-fab" id="ttsFab" onclick="ttsToggle()" title="Read aloud">
+    <span id="ttsFabIcon">&#x1f50a;</span>
+  </button>
+  <div class="tts-bar" id="ttsBar">
+    <button onclick="ttsPause()" id="ttsPauseBtn">&#x23f8;</button>
+    <button onclick="ttsStop()">&#x23f9;</button>
+    <button onclick="ttsPrev()">&#x23ee;</button>
+    <button onclick="ttsNext()">&#x23ed;</button>
+    <span class="tts-info" id="ttsInfo">Ready</span>
+    <span class="tts-speed">
+      <input type="range" id="ttsSpeed" min="0.5" max="2.0" step="0.1"
+             value="1.0" onchange="ttsSetSpeed(this.value)" />
+      <span id="ttsSpeedVal">1.0x</span>
+    </span>
+  </div>
+
+  <button class="mode-toggle" onclick="toggleMode()">🌗 表示切替</button>
+
+  <script>
+    // Reading mode
+    function toggleMode() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('mode', document.body.classList.contains('light') ? 'light' : 'dark');
+    }
+    if (localStorage.getItem('mode') === 'light') document.body.classList.add('light');
+
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      document.getElementById('progress').style.width = pct + '%';
+    });
+
+    // === TTS (Web Speech API) ===
+    const synth = window.speechSynthesis;
+    let ttsChs = [], ttsI = 0, ttsRate = 1.0, ttsOn = false, ttsPd = false;
+
+    document.querySelectorAll('.chapter').forEach((sec, i) => {
+      const b = sec.querySelector('.chapter-body');
+      const t = sec.querySelector('.chapter-title');
+      if (b) ttsChs.push({
+        title: t ? t.textContent : ('Ch.' + (i+1)),
+        text: b.textContent.trim(), el: sec
+      });
+    });
+
+    function ttsToggle() {
+      if (!synth) { alert('Speech not supported'); return; }
+      if (ttsOn) { ttsStop(); return; }
+      const sy = window.scrollY + window.innerHeight / 3;
+      let cl = 0;
+      ttsChs.forEach((c, i) => { if (c.el.offsetTop <= sy) cl = i; });
+      ttsI = cl; ttsOn = true; ttsPd = false;
+      document.getElementById('ttsFab').classList.add('speaking');
+      document.getElementById('ttsFabIcon').innerHTML = '&#x23f9;';
+      document.getElementById('ttsBar').classList.add('active');
+      _ttsRead();
+    }
+
+    function _ttsRead() {
+      if (ttsI >= ttsChs.length) { ttsStop(); return; }
+      synth.cancel();
+      const ch = ttsChs[ttsI];
+      document.getElementById('ttsInfo').textContent = ch.title;
+      ch.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Split by Japanese sentence endings for reliable playback
+      const sents = ch.text.match(/[^。！？
+]+[。！？]?/g) || [ch.text];
+      let si = 0;
+
+      function next() {
+        if (!ttsOn) return;
+        if (si >= sents.length) {
+          ttsI++;
+          if (ttsI < ttsChs.length) setTimeout(_ttsRead, 800);
+          else ttsStop();
+          return;
+        }
+        const u = new SpeechSynthesisUtterance(sents[si].trim());
+        u.lang = 'ja-JP'; u.rate = ttsRate;
+        const vs = synth.getVoices();
+        const jv = vs.find(v => v.lang && v.lang.startsWith('ja'));
+        if (jv) u.voice = jv;
+        u.onend = () => { si++; next(); };
+        u.onerror = () => { si++; next(); };
+        synth.speak(u);
+      }
+      next();
+    }
+
+    function ttsPause() {
+      if (!ttsOn) return;
+      if (ttsPd) {
+        synth.resume(); ttsPd = false;
+        document.getElementById('ttsPauseBtn').innerHTML = '&#x23f8;';
+      } else {
+        synth.pause(); ttsPd = true;
+        document.getElementById('ttsPauseBtn').innerHTML = '&#x25b6;';
+      }
+    }
+
+    function ttsStop() {
+      synth.cancel(); ttsOn = false; ttsPd = false;
+      document.getElementById('ttsFab').classList.remove('speaking');
+      document.getElementById('ttsFabIcon').innerHTML = '&#x1f50a;';
+      document.getElementById('ttsBar').classList.remove('active');
+      document.getElementById('ttsInfo').textContent = 'Ready';
+      document.getElementById('ttsPauseBtn').innerHTML = '&#x23f8;';
+    }
+
+    function ttsNext() { if (ttsOn && ttsI < ttsChs.length - 1) { ttsI++; _ttsRead(); } }
+    function ttsPrev() { if (ttsOn && ttsI > 0) { ttsI--; _ttsRead(); } }
+    function ttsSetSpeed(v) {
+      ttsRate = parseFloat(v);
+      document.getElementById('ttsSpeedVal').textContent = v + 'x';
+    }
+    if (synth) synth.onvoiceschanged = () => synth.getVoices();
+
+  </script>
+</body>
+</html>
